@@ -142,6 +142,7 @@ const Filters = () => {
             />
           </div>
         </form>
+        {/* CLEAR BUTTON */}
         <button type='button' className='clear-btn' onClick={clearFilters}>
           clear filters
         </button>
@@ -179,6 +180,7 @@ const Wrapper = styled.section`
     letter-spacing: var(--spacing);
     color: var(--clr-grey-5);
     cursor: pointer;
+    outline: none;
   }
   .active {
     border-color: var(--clr-grey-5);

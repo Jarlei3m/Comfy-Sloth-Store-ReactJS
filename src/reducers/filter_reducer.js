@@ -8,6 +8,7 @@ import {
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
 } from '../actions';
+import { products_url } from '../utils/constants';
 
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_PRODUCTS) {
@@ -71,7 +72,53 @@ const filter_reducer = (state, action) => {
   }
 
   if (action.type === FILTER_PRODUCTS) {
-    return { ...state };
+    const { all_products } = state;
+    const { text, category, company, color, price, shipping } = state.filters;
+
+    let filteredProducts = [...all_products];
+
+    // FILTERING
+    // text
+    if (text) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes(text)
+      );
+    }
+
+    // category
+    if (category !== 'all') {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.category === category
+      );
+    }
+
+    // company
+    if (company !== 'all') {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.company === company
+      );
+    }
+
+    // colors
+    if (color !== 'all') {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.colors.find((item) => item === color)
+      );
+    }
+
+    // price
+    filteredProducts = filteredProducts.filter(
+      (product) => product.price <= price
+    );
+
+    // shipping
+    if (shipping) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.shipping === true
+      );
+    }
+
+    return { ...state, filtered_products: filteredProducts };
   }
 
   if (action.type === CLEAR_FILTERS) {
