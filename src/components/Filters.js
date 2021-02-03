@@ -117,6 +117,7 @@ const Filters = () => {
               })}
             </div>
           </div>
+          {/* PRICE */}
           <div className='form-control'>
             <h5>price</h5>
             <p className='price'>{formatPrice(price)}</p>
@@ -126,6 +127,17 @@ const Filters = () => {
               min={min_price}
               max={max_price}
               value={price}
+              onChange={updateFilters}
+            />
+          </div>
+          {/* SHIPPING */}
+          <div className='form-control shipping'>
+            <label htmlFor='shipping'>free shipping</label>
+            <input
+              type='checkbox'
+              name='shipping'
+              id='shipping'
+              cheked={shipping}
               onChange={updateFilters}
             />
           </div>
