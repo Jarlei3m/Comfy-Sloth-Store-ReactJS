@@ -22,6 +22,7 @@ const filter_reducer = (state, action) => {
     };
   }
 
+  // viewr
   if (action.type === SET_GRIDVIEW) {
     return { ...state, grid_view: true };
   }
@@ -30,6 +31,7 @@ const filter_reducer = (state, action) => {
     return { ...state, grid_view: false };
   }
 
+  // sort
   if (action.type === UPDATE_SORT) {
     return { ...state, sort: action.payload };
   }
@@ -60,6 +62,19 @@ const filter_reducer = (state, action) => {
 
     return { ...state, filtered_products: tempProducts };
   }
+
+  // filters
+  if (action.type === UPDATE_FILTERS) {
+    const { name, value } = action.payload;
+
+    return { ...state, filters: { ...state.filters, [name]: value } };
+  }
+
+  if (action.type === FILTER_PRODUCTS) {
+    console.log('filtering products...');
+    return { ...state };
+  }
+
   throw new Error(`No Matching "${action.type}" - action type`);
 };
 

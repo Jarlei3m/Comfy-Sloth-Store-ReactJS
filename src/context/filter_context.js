@@ -46,22 +46,40 @@ export const FilterProvider = ({ children }) => {
 
   // sort
   const handleSort = (e) => {
-    const input = e.target.value;
+    const value = e.target.value;
 
-    dispatch({ type: UPDATE_SORT, payload: input });
+    dispatch({ type: UPDATE_SORT, payload: value });
   };
+
+  // filters
+  const updateFilters = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
+  };
+
+  const clearFilters = () => {};
 
   useEffect(() => {
     dispatch({ type: LOAD_PRODUCTS, payload: products });
   }, [products]);
 
   useEffect(() => {
+    dispatch({ type: FILTER_PRODUCTS });
     dispatch({ type: SORT_PRODUCTS });
-  }, [products, state.sort]);
+  }, [products, state.sort, state.filters]);
 
   return (
     <FilterContext.Provider
-      value={{ ...state, handleGridViewr, handleListViewr, handleSort }}
+      value={{
+        ...state,
+        handleGridViewr,
+        handleListViewr,
+        handleSort,
+        updateFilters,
+        clearFilters,
+      }}
     >
       {children}
     </FilterContext.Provider>
